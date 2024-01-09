@@ -1,7 +1,10 @@
 { pkgs ? import <nixpkgs> {} }:
 
 pkgs.mkShell {
-  buildInputs = [ pkgs.python3 pkgs.git ];
+  buildInputs = [ pkgs.python3 pkgs.git pkgs.stress ];
+
+  LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
+
   shellHook = ''
     if [ ! -d "$(basename $(pwd))" ]; then
       python -m venv $(basename $(pwd))
